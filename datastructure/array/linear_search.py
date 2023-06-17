@@ -1,6 +1,9 @@
 """
     Linear Search is defined as a sequential search algorithm that starts at one end and goes through each
     element of a list until the desired element is found.
+
+    # Time complexity: O(N)
+    # Space complexity: O(1)
 """
 import array
 
