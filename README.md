@@ -49,6 +49,7 @@
 * Versatility
 * Easy to implement
 * compatibility with hardware
+* Arrays are faster than list in python
 
 #### Disadvantages
 * Fixed size
