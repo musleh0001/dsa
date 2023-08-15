@@ -38,14 +38,73 @@ class LinkedList:
 
         _last.next = new_node
 
-    def printf(self):
+    def __str__(self):
+        """Return Full Linked List"""
         tmp = self.head
 
-        print(f"head ->> ", end="")
+        print_str = "head ->> "
         while tmp:
-            print(tmp.data, end=" ->> ")
+            print_str += f"{tmp.data} ->> "
             tmp = tmp.next
-        print("None")
+        print_str += " None"
+        return print_str
+
+    def __len__(self):
+        """Return length of the lisked list"""
+        count = 0
+        tmp = self.head
+
+        while tmp:
+            count += 1
+            tmp = tmp.next
+        return count
+
+    def getCountRec(self, node):
+        if not node:
+            return 0
+        return 1 + self.getCountRec(node.next)
+
+    def getCount(self):
+        tmp = self.head
+        print("Length rec: ", self.getCountRec(tmp))
+
+    def searchIter(self, key):
+        tmp = self.head
+        while tmp:
+            if tmp.data == key:
+                print(f"{key} is found")
+                return
+            tmp = tmp.next
+        print(f"{key} not found")
+
+    def searchRec(self, node, key):
+        if not node:
+            return False
+        if node.data == key:
+            return True
+        return self.searchRec(node.next, key)
+
+    def reverse(self):
+        prev = None
+        current = self.head
+
+        while current:
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+        self.head = prev
+
+    def reverseRec(self, node):
+        if not node or not node.next:
+            return node
+
+        rest = self.reverseRec(node.next)
+
+        node.next.next = node
+        node.next = None
+
+        return rest
 
 
 if __name__ == "__main__":
@@ -59,4 +118,17 @@ if __name__ == "__main__":
     li.insertAfter(li.head.next, 99)
     li.push(10)
 
-    li.printf()
+    li.getCount()
+    print("Length: ", len(li))
+    print(li)
+
+    li.searchIter(88)
+    if li.searchRec(li.head, 99):
+        print("Key found")
+    else:
+        print("Key not found")
+
+    li.reverse()
+    print(li)
+    li.head = li.reverseRec(li.head)
+    print(li)
